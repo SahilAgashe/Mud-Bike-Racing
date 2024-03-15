@@ -6,11 +6,12 @@
 //
 
 import SpriteKit
+import CoreMotion
 
 class GameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "player-motorbike")
-    var touchingPlayer = false
+    let motionManager = CMMotionManager()
     
     /// this method is called when your game scene is ready to run
     override func didMove(to view: SKView) {
@@ -25,36 +26,24 @@ class GameScene: SKScene {
             addChild(particles)
         }
         
-        player.position.x = -250
+        player.position.x = 0
         player.zPosition = 1
         addChild(player)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
-        
-        let tappedNodes = nodes(at: location)
-        if tappedNodes.contains(player) {
-            touchingPlayer = true
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        guard touchingPlayer else { return }
-        guard let touch = touches.first else { return }
-        
-        let location = touch.location(in: self)
-        player.position = location
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchingPlayer = false
+        motionManager.startAccelerometerUpdates()
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        if let accelerometerData = motionManager.accelerometerData
+        {
+            
+            let changeX = CGFloat(accelerometerData.acceleration.y) * 100
+            let changeY = CGFloat(accelerometerData.acceleration.x) * 100
+            
+            player.position.x -= changeX
+            player.position.y += changeY
+        }
     }
 }
