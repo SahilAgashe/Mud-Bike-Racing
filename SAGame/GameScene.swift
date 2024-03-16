@@ -6,11 +6,13 @@
 //
 
 import SpriteKit
+import GameplayKit
 
 class GameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "player-motorbike")
     var touchingPlayer = false
+    var gameTimer: Timer?
     
     /// this method is called when your game scene is ready to run
     override func didMove(to view: SKView) {
@@ -28,6 +30,8 @@ class GameScene: SKScene {
         player.position.x = -250
         player.zPosition = 1
         addChild(player)
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -56,5 +60,23 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func createEnemy() {
+        
+        let randomDistribution = GKRandomDistribution(lowestValue: -350, highestValue: 350)
+        let sprite = SKSpriteNode(imageNamed: "car")
+        
+        sprite.position = CGPoint(x: 200, y: randomDistribution.nextInt())
+        sprite.name = "enemy"
+        sprite.zPosition = 1
+        addChild(sprite)
+        
+        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+        sprite.physicsBody?.velocity = CGVector(dx: -1000, dy: 0)
+        sprite.physicsBody?.linearDamping = 0.0
+        sprite.physicsBody?.angularDamping = 0.0
     }
 }
