@@ -11,11 +11,24 @@ import GameplayKit
 class GameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "player-motorbike")
+    let scoreLabel = SKLabelNode(fontNamed: "AvenirNextCondensed-Bold")
+    let music = SKAudioNode(fileNamed: "cyborg-ninja")
     var touchingPlayer = false
     var gameTimer: Timer?
     
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "SCORE: \(score)"
+        }
+    }
+    
     /// this method is called when your game scene is ready to run
     override func didMove(to view: SKView) {
+        
+        scoreLabel.zPosition = 2
+        scoreLabel.position.y = 210
+        addChild(scoreLabel)
+        score = 0
         
         let background = SKSpriteNode(imageNamed: "road")
         background.zPosition = -1
@@ -38,6 +51,8 @@ class GameScene: SKScene {
         player.physicsBody?.categoryBitMask = 1
         
         physicsWorld.contactDelegate = self
+        
+        addChild(music)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -66,6 +81,9 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        // if you want increase score according how long staying alive
+        //score += 1
     }
     
     // MARK: - Selectors
@@ -81,19 +99,59 @@ class GameScene: SKScene {
         addChild(sprite)
         
         sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
-        sprite.physicsBody?.velocity = CGVector(dx: -1000, dy: 0)
-        //sprite.physicsBody?.linearDamping = 0.0
-        //sprite.physicsBody?.angularDamping = 0.0
+        sprite.physicsBody?.velocity = CGVector(dx: -500, dy: 0)
         sprite.physicsBody?.affectedByGravity = false
         
         sprite.physicsBody?.contactTestBitMask = 1
         sprite.physicsBody?.categoryBitMask = 0
+        
+        // Also create coin so player can collect it!
+        createBonus()
     }
     
     // MARK: - Helpers
     
     private func playerHit(_ node: SKNode) {
+        if node.name == "bonus" {
+            score += 100
+            node.removeFromParent()
+            return
+        }
+        
+        if let particles = SKEmitterNode(fileNamed: "BurningFire") {
+            particles.position = player.position
+            particles.zPosition = 3
+            addChild(particles)
+        }
+        
+        music.removeFromParent()
         player.removeFromParent()
+        
+        let gameOver = SKSpriteNode(imageNamed: "gameOver-1")
+        gameOver.zPosition = 10 // default zPostion is 0
+        addChild(gameOver)
+
+        let sound = SKAction.playSoundFileNamed("explosion", waitForCompletion: false)
+        run(sound)
+        
+    }
+    
+    private func createBonus() {
+        let randomDistribution = GKRandomDistribution(lowestValue: -350, highestValue: 350)
+        let sprite = SKSpriteNode(imageNamed: "coin")
+        
+        sprite.position = CGPoint(x: 1000, y: randomDistribution.nextInt())
+        sprite.name = "bonus"
+        sprite.zPosition = 1
+        addChild(sprite)
+        
+        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+        sprite.physicsBody?.velocity = CGVector(dx: -500, dy: 0)
+        sprite.physicsBody?.affectedByGravity = false
+        
+        sprite.physicsBody?.contactTestBitMask = 1
+        sprite.physicsBody?.categoryBitMask = 0
+        sprite.physicsBody?.collisionBitMask = 0
     }
 }
 

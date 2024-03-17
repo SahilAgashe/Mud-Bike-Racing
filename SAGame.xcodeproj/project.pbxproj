@@ -16,6 +16,9 @@
 		8167232D2BA4AECF001F1238 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8167232B2BA4AECF001F1238 /* LaunchScreen.storyboard */; };
 		816723352BA4B219001F1238 /* Mud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816723332BA4B219001F1238 /* Mud.sks */; };
 		816723362BA4B219001F1238 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 816723342BA4B219001F1238 /* Assets.xcassets */; };
+		81A001B52BA6F42D00A71513 /* BurningFire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A001B42BA6F42D00A71513 /* BurningFire.sks */; };
+		81C624E92BA6CDD8000A7598 /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 81C624E82BA6CDD8000A7598 /* explosion.wav */; };
+		81D29D6A2BA5B71500098DDF /* cyborg-ninja.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 81D29D692BA5B71500098DDF /* cyborg-ninja.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		8167232C2BA4AECF001F1238 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		816723332BA4B219001F1238 /* Mud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Mud.sks; sourceTree = "<group>"; };
 		816723342BA4B219001F1238 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		81A001B42BA6F42D00A71513 /* BurningFire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BurningFire.sks; sourceTree = "<group>"; };
+		81C624E82BA6CDD8000A7598 /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
+		81D29D692BA5B71500098DDF /* cyborg-ninja.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "cyborg-ninja.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,9 @@
 				816723262BA4AECF001F1238 /* Main.storyboard */,
 				816723292BA4AECF001F1238 /* Assets.xcassets */,
 				8167232B2BA4AECF001F1238 /* LaunchScreen.storyboard */,
+				81D29D692BA5B71500098DDF /* cyborg-ninja.mp3 */,
+				81C624E82BA6CDD8000A7598 /* explosion.wav */,
+				81A001B42BA6F42D00A71513 /* BurningFire.sks */,
 			);
 			path = SAGame;
 			sourceTree = "<group>";
@@ -134,9 +143,12 @@
 			files = (
 				816723352BA4B219001F1238 /* Mud.sks in Resources */,
 				816723282BA4AECF001F1238 /* Main.storyboard in Resources */,
+				81C624E92BA6CDD8000A7598 /* explosion.wav in Resources */,
 				8167231F2BA4AECF001F1238 /* GameScene.sks in Resources */,
 				8167232A2BA4AECF001F1238 /* Assets.xcassets in Resources */,
 				816723362BA4B219001F1238 /* Assets.xcassets in Resources */,
+				81A001B52BA6F42D00A71513 /* BurningFire.sks in Resources */,
+				81D29D6A2BA5B71500098DDF /* cyborg-ninja.mp3 in Resources */,
 				8167232D2BA4AECF001F1238 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
