@@ -10,6 +10,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    // MARK: - Property
     let player = SKSpriteNode(imageNamed: "player-motorbike")
     let scoreLabel = SKLabelNode(fontNamed: "AvenirNextCondensed-Bold")
     let music = SKAudioNode(fileNamed: "cyborg-ninja")
@@ -21,6 +22,8 @@ class GameScene: SKScene {
             scoreLabel.text = "SCORE: \(score)"
         }
     }
+    
+    // MARK: - Override
     
     /// this method is called when your game scene is ready to run
     override func didMove(to view: SKView) {
@@ -84,6 +87,20 @@ class GameScene: SKScene {
         
         // if you want increase score according how long staying alive
         //score += 1
+        
+        // horizontal restrictions
+        if player.position.x < -300 {
+            player.position.x = -300
+        } else if player.position.x > 300 {
+            player.position.x = 300
+        }
+        
+        // vertical restrictions
+        if player.position.y < -300 {
+            player.position.y = -300
+        } else if player.position.y > 300 {
+            player.position.y = 300
+        }
     }
     
     // MARK: - Selectors
@@ -155,6 +172,7 @@ class GameScene: SKScene {
     }
 }
 
+// MARK: - SKPhysicsContactDelegate
 extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -167,6 +185,5 @@ extension GameScene: SKPhysicsContactDelegate {
             playerHit(nodeA)
         }
     }
-    
     
 }
