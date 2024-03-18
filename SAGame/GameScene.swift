@@ -85,21 +85,31 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
+        for node in children {
+            if node.position.x < -700 {
+                node.removeFromParent()
+            }
+        }
+        
         // if you want increase score according how long staying alive
-        //score += 1
+        if player.parent != nil {
+            score += 1
+        }
         
         // horizontal restrictions
-        if player.position.x < -300 {
-            player.position.x = -300
-        } else if player.position.x > 300 {
-            player.position.x = 300
+        let xConstant: CGFloat = 300
+        if player.position.x < -xConstant {
+            player.position.x = -xConstant
+        } else if player.position.x > xConstant {
+            player.position.x = xConstant
         }
         
         // vertical restrictions
-        if player.position.y < -300 {
-            player.position.y = -300
-        } else if player.position.y > 300 {
-            player.position.y = 300
+        let yConstant: CGFloat = 150
+        if player.position.y < -yConstant {
+            player.position.y = -yConstant
+        } else if player.position.y > yConstant {
+            player.position.y = yConstant
         }
     }
     
@@ -147,6 +157,15 @@ class GameScene: SKScene {
         let gameOver = SKSpriteNode(imageNamed: "gameOver-1")
         gameOver.zPosition = 10 // default zPostion is 0
         addChild(gameOver)
+        
+        // wait for two seconds then run game again!
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // create a new scene from GameScene.sks
+            if let scene = GameScene(fileNamed: "GameScene") {
+                scene.scaleMode = .aspectFill
+                self.view?.presentScene(scene)
+            }
+        }
 
         let sound = SKAction.playSoundFileNamed("explosion", waitForCompletion: false)
         run(sound)
